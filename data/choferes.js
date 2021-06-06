@@ -23,11 +23,26 @@ async function getChofer(id){
 
 async function addChofer(chofer){
     const connectiondb = await connection.getConnection()
+    chofer.vehiculosAsignados = []
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Choferes')
     .insertOne(chofer)
 
     return result
+}
+
+async function addVehiculoChofer(id,vehiculo) {
+    const connectiondb = await connection.getConnection()
+ 
+    const chofer= await getChofer(id)
+
+    if(!chofer){
+        throw new Error(`No se encotro ningun chofer con id ${id}`)        
+    }
+    //Validar Vehiculo
+    chofer.vehiculosAsignados.push(vehiculo)
+
+    return true
 }
 
 async function putChofer(id,chofer){
@@ -38,7 +53,7 @@ async function putChofer(id,chofer){
     if(!oldChofer){
         throw new Error(`No se encotro ningun chofer con id ${id}`)        
     }
-
+    //Validar Parametros
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Choferes')
     .update(
@@ -48,7 +63,7 @@ async function putChofer(id,chofer){
                 "CUIT" :chofer.CUIT ?? oldChofer.CUIT,
                 "nombre" :chofer.nombre ?? oldChofer.nombre,
                 "apellido" :chofer.apellido ?? oldChofer.apellido,  
-                "fechaNacimiento" :chofer.fechNacimiento ?? oldChofer.fechNacimiento,  
+                "fechaNacimiento" :chofer.fechaNacimiento ?? oldChofer.fechaNacimiento,  
                 "comision" :chofer.comision ?? oldChofer.comision,  
             }
     })
