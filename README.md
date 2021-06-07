@@ -1,7 +1,11 @@
 ~~Breve descripción (no más de 5 lineas) del proyecto y lo que apunta resolver.
 Listado de funcionalidades (casos de uso)
 Listado de actores/roles 
-Listado de las entidades principales~~ 
+Listado de las entidades principales
+Instrucciones técnicas:
+    - Para la instalación de un entorno de desarrollo
+    - Para la ejecución
+Listado de los endpoints de la API~~ 
 
 # Transportes Raffi
 ## Descripcion del proyecto
@@ -26,3 +30,19 @@ El objetivo es dar respuesta a la necesidad de un Cliente de proveer un mecanism
 * Cliente
 * Chofer
 * Viaje
+
+## Instalación
+*
+*
+*
+
+
+## Ejecución
+*
+*
+*
+
+## Endpoints
+*
+*
+*
