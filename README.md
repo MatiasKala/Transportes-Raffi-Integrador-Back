@@ -32,15 +32,15 @@ El objetivo es dar respuesta a la necesidad de un Cliente de proveer un mecanism
 * Viaje
 
 ## Instalación
-*
-*
-*
+1.
+2.
+3.
 
 
 ## Ejecución
-*
-*
-*
+1.
+2.
+3.
 
 ## Endpoints
 *
