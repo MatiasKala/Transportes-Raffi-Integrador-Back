@@ -32,9 +32,12 @@ El objetivo es dar respuesta a la necesidad de un Cliente de proveer un mecanism
 * Viaje
 
 ## Instalación
-1.
-2.
-3.
+
+Usar el gestor de paquetes npm para instalar la aplicación.
+
+```bash
+npm install
+```
 
 
 ## Ejecución
