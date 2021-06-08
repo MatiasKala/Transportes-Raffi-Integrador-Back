@@ -12,16 +12,16 @@ async function getAllViajes(){
     .find()
     .toArray()
   
-    return vehiculos
+    return viajes
 }
 
 async function getViajes(id){
     const connectiondb = await connection.getConnection()
-    const vehiculo  = await connectiondb.db('TransportesRaffi')
+    const viaje  = await connectiondb.db('TransportesRaffi')
     .collection('Viajes')
     .findOne({_id : mongodb.ObjectID(id)})
   
-    return vehiculo
+    return viaje
 }
 
 // async function getVehiculoByPatente(patente){
