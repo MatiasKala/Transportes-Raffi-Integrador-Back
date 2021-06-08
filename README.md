@@ -32,9 +32,12 @@ El objetivo es dar respuesta a la necesidad de un Cliente de proveer un mecanism
 * Viaje
 
 ## Instalación
-1.
-2.
-3.
+
+Usar el gestor de paquetes npm para instalar la aplicación.
+
+```bash
+npm install
+```
 
 
 ## Ejecución
@@ -42,7 +45,18 @@ El objetivo es dar respuesta a la necesidad de un Cliente de proveer un mecanism
 2.
 3.
 
-## Endpoints
-*
-*
-*
+## API endpoints
+### /usuarios
+Estos endpoints corresponden a la gestión de usuarios de la aplicación.
+
+#### GET
+`Obtener Usuarios` [/usuarios]<br/>
+`Obtener Usuario` [/usuarios/:id]<br/>
+
+#### POST
+`Agregar Usuarios` [/usuarios]<br/>
+`Login` [/usuarios/login]<br/>
+
+#### PUT
+`Modificar Usuario` [/usuarios/:id]<br/>
+
