@@ -6,12 +6,12 @@ const auth = require('../middleware/auth')
 
 // /usuarios
 
-router.get('/',auth, async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   const users = await data.getAllUsers()
   res.send(users)
 });
 
-router.get('/:id',auth, async function(req, res, next) {
+router.get('/:id', async function(req, res, next) {
   try {
     const user = await data.getUser(req.params.id)
     res.send(user)    
