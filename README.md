@@ -45,7 +45,18 @@ npm install
 2.
 3.
 
-## Endpoints
-*
-*
-*
+## API endpoints
+### /usuarios
+Estos endpoints corresponden a la gestión de usuarios de la aplicación.
+
+#### GET
+`Obtener Usuarios` [/usuarios]<br/>
+`Obtener Usuario` [/usuarios/:id]<br/>
+
+#### POST
+`Agregar Usuarios` [/usuarios]<br/>
+`Login` [/usuarios/login]<br/>
+
+#### PUT
+`Modificar Usuario` [/usuarios/:id]<br/>
+
