@@ -2,6 +2,7 @@ const connection = require('./connection')
 const mongodb = require('mongodb')
 const bcrypt = require('bcrypt')
 const jsonwebtoken = require('jsonwebtoken')
+require('dotenv').config();
 
 async function getAllUsers(){
     const connectiondb = await connection.getConnection()
@@ -102,7 +103,7 @@ async function findByCredentials(email , password){
 }
 
 function generateAuthToken(user){
-    const token = jsonwebtoken.sign({_id:user._id}, 'claveSecreta', {expiresIn: '2h'})
+    const token = jsonwebtoken.sign({_id:user._id}, process.env.SECRET, {expiresIn: '4h'})
     return token
 }
 

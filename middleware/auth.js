@@ -7,7 +7,7 @@ function auth(req, res, next){
 
         const token = req.header('Authorization').replace('Bearer ', '');
         
-        jsonwebtoken.verify(token, 'claveSecreta');  
+        jsonwebtoken.verify(token, process.env.SECRET);  
 
         next();
     } catch (error) {
