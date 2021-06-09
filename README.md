@@ -30,6 +30,7 @@ El objetivo es dar respuesta a la necesidad de un Cliente de proveer un mecanism
 ## Entidades
 * Usuario
 * Cliente
+* Vehiculo
 * Chofer
 * Viaje
 
