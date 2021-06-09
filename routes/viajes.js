@@ -23,16 +23,10 @@ router.get('/:id',auth, async function(req, res, next) {
 
 });
 
-// router.post('/',auth, async (req, res) =>{
-//   const result = await viajesDAO.addViaje(req.body)
-//   res.send(result)
-// });
-
 router.post('/cliente/:cuitCliente/vehiculo/:patente',auth, async (req, res) =>{
   const result = await viajesDAO.addViaje(req.params.cuitCliente, req.params.patente, req.body)
   res.send(result)
 });
-
 
 router.put('/:id', auth, async function(req, res, next) {
   try {
@@ -43,16 +37,6 @@ router.put('/:id', auth, async function(req, res, next) {
     console.error(error);
   }
 });
-
-// router.put('/:patente/:idChofer', auth, async function(req, res, next) {
-//   try {
-//     const result = await data.asignarChoferVehiculo(req.params.patente,req.params.idChofer)
-//     res.send(result)    
-//   } catch (error) {
-//     res.send(error.message)    
-//     console.error(error);
-//   }
-// });
 
 router.delete('/:id', auth, async function(req, res, next) {
   try {
