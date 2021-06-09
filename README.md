@@ -16,10 +16,12 @@ El objetivo es dar respuesta a la necesidad de un Cliente de proveer un mecanism
 * CRUD de Usuario
 * CRUD de Chofer
 * CRUD de Cliente
-* CRUD de Viaje Programado
+* CRUD de Viajes
 * Gestion de Hoja de Ruta
   * Consulta de Clima/Pronostico
   * Consulta de ruta
+  * Actualizacion de Estado de viajes
+* Filtrado de Viajes por datos
 
 ## Actores/Roles
 * Administrador
@@ -39,15 +41,22 @@ Usar el gestor de paquetes npm para instalar la aplicación.
 npm install
 ```
 
-
 ## Ejecución
-1.
-2.
-3.
+1. npm run para correr
+```bash
+npm run
+```
+2. npm run startDev para correr con Nodemon (si esta instalado)
+
+```bash
+npm run startDev
+```
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
 ## API endpoints
 ### /usuarios
-Estos endpoints corresponden a la gestión de usuarios de la aplicación.
+Estos endpoints corresponden a la gestión de USUARIOS de la aplicación.
 
 #### GET
 `Obtener Usuarios` [/usuarios]<br/>
@@ -59,4 +68,77 @@ Estos endpoints corresponden a la gestión de usuarios de la aplicación.
 
 #### PUT
 `Modificar Usuario` [/usuarios/:id]<br/>
+
+#### DELETE
+`Eliminar Usuario` [/usuarios/:id]
+
+
+### /vehiculos
+Estos endpoints corresponden a la gestión de VEHICULOS de la aplicación.
+
+#### GET
+`Obtener Vehiculos` [/vehiculos]<br/>
+`Obtener Vehiculo` [/vehiculos/:id]<br/>
+
+#### POST
+`Agregar Vehiculos` [/vehiculos]<br/>
+
+#### PUT
+`Modificar Vehiculo` [/vehiculos/:id]<br/>
+`Asignar Chofer a Vehiculo` [/vehiculos/:patente/:idChofer]<br/>
+
+#### DELETE
+`Eliminar Vehiculo` [/vehiculos/:id]
+
+
+### /
+Estos endpoints corresponden a la gestión de CHOFERES de la aplicación.
+
+#### GET
+`Obtener Choferes` [/choferes]<br/>
+`Obtener Chofer` [/choferes/:id]<br/>
+
+#### POST
+`Agregar Choferes` [/choferes]<br/>
+
+#### PUT
+`Modificar Chofer` [/choferes/:id]<br/>
+
+#### DELETE
+`Eliminar Chofer` [/choferes/:id]
+
+### /
+Estos endpoints corresponden a la gestión de CLIENTES de la aplicación.
+
+#### GET
+`Obtener Clientes` [/clientes]<br/>
+`Obtener Cliente` [/clientes/:id]<br/>
+
+#### POST
+`Agregar Clientes` [/clientes]<br/>
+
+#### PUT
+`Modificar Cliente` [/clientes/:id]<br/>
+
+#### DELETE
+`Eliminar Cliente` [/clientes/:id]
+
+### /
+Estos endpoints corresponden a la gestión de VIAJES de la aplicación.
+
+#### GET
+`Obtener Viajes` [/viajes]<br/>
+`Obtener Viaje` [/viajes/:id]<br/>
+
+#### POST
+`Agregar Viajes` [/viajes]<br/>
+
+#### PUT
+`Modificar Viaje` [/viajes/:id]<br/>
+
+#### DELETE
+`Eliminar Viaje` [/viajes/:id]
+
+
+
 
