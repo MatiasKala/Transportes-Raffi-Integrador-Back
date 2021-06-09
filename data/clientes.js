@@ -46,4 +46,19 @@ async function deleteCliente(id) {
     return result
 }
 
-module.exports = { getAllClientes, getCliente, addCliente, deleteCliente }
+async function findByCUIT(cuit){
+    const connectiondb = await connection.getConnection()
+
+    const chofer = await connectiondb.db('TransportesRaffi')
+    .collection('Clientes')
+    .findOne({cuit : cuit})
+
+    if(!chofer){
+        throw new Error(`No se encotro ningun cliente con CUIT ${cuit}`)
+    }
+
+    return chofer
+}
+
+
+module.exports = { getAllClientes, getCliente, addCliente, deleteCliente, findByCUIT }

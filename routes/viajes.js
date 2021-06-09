@@ -1,19 +1,20 @@
 var express = require('express');
 var router = express.Router();
-const data = require('../data/viajes')
+const viajesDAO = require('../data/viajes')
+const vehiculosDAO = require('../data/vehiculos')
 const auth = require('../middleware/auth')
 /* GET viajes listing. */
 
 // /viajes
 
 router.get('/',auth, async function(req, res, next) {
-  const viajes = await data.getAllViajes()
+  const viajes = await viajesDAO.getAllViajes()
   res.send(viajes)
 });
 
 router.get('/:id',auth, async function(req, res, next) {
   try {
-    const viaje = await data.getViaje(req.params.id)
+    const viaje = await viajesDAO.getViaje(req.params.id)
     res.send(viaje)    
   } catch (error) {
     res.send(error.message)    
@@ -22,15 +23,20 @@ router.get('/:id',auth, async function(req, res, next) {
 
 });
 
-router.post('/',auth, async (req, res) =>{
-  const result = await data.addViaje(req.body)
+// router.post('/',auth, async (req, res) =>{
+//   const result = await viajesDAO.addViaje(req.body)
+//   res.send(result)
+// });
+
+router.post('/cliente/:cuitCliente/vehiculo/:patente',auth, async (req, res) =>{
+  const result = await viajesDAO.addViaje(req.params.cuitCliente, req.params.patente, req.body)
   res.send(result)
 });
 
 
 router.put('/:id', auth, async function(req, res, next) {
   try {
-    const result = await data.putViaje(req.params.id,req.body)
+    const result = await viajesDAO.putViaje(req.params.id,req.body)
     res.send(result)    
   } catch (error) {
     res.send(error.message)    
@@ -50,7 +56,7 @@ router.put('/:id', auth, async function(req, res, next) {
 
 router.delete('/:id', auth, async function(req, res, next) {
   try {
-    const result = await data.deleteViaje(req.params.id)
+    const result = await viajesDAO.deleteViaje(req.params.id)
     res.send(result)    
   } catch (error) {
     res.send(error.message)    
