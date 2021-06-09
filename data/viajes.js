@@ -13,7 +13,7 @@ async function getAllViajes(){
     return viajes
 }
 
-async function getViajes(id){
+async function getViaje(id){
     const connectiondb = await connection.getConnection()
     const viaje  = await connectiondb.db('TransportesRaffi')
     .collection('Viajes')
@@ -63,4 +63,4 @@ async function deleteViaje(id) {
 }
 
 
-module.exports = { getAllViajes, getViajes, addViaje, deleteViaje }
+module.exports = { getAllViajes, getViaje, addViaje, deleteViaje }
