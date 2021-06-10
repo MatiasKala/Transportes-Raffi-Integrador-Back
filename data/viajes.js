@@ -42,7 +42,7 @@ async function addViaje(cuitCliente, patente, viaje){
     .collection('Viajes')
     .insertOne(viaje)
     
-    return viaje
+    return result
 }
 
 async function deleteViaje(id) {

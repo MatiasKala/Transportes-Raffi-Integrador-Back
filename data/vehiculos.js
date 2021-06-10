@@ -1,7 +1,7 @@
 const connection = require('./connection')
 const mongodb = require('mongodb')
 const getChofer = require('../data/choferes').getChofer
-
+const asignarVehiculoAchofer = require('../data/choferes').asignarVehiculoAchofer
 
 async function getAllVehiculos(){
     const connectiondb = await connection.getConnection()
@@ -56,9 +56,13 @@ async function asignarViajeVehiculo(patente,viaje) {
 }
 
 
-async function asignarChoferVehiculo(patente,idChofer) { 
+async function asignarChoferAvehiculo(patente,idChofer) { 
     
-    const vehiculo= await getVehiculoByPatente(patente)
+    console.log('LLEGUE AL DATA ');
+
+    console.log(patente,'\n',idChofer);
+
+    let vehiculo= await getVehiculoByPatente(patente)
 
     if(!vehiculo){
         throw new Error(`No se encontro ningun vehiculo con patente ${patente}`)      
@@ -70,21 +74,23 @@ async function asignarChoferVehiculo(patente,idChofer) {
     if(!chofer){
         throw new Error(`No se encontro ningun chofer con id ${idChofer}`)      
     }
+        
+    vehiculo.chofer = chofer 
 
+    await asignarVehiculoAchofer(vehiculo,chofer)
+    
     const connectiondb = await connection.getConnection()
 
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Vehiculos')
-    .update(
+    .updateOne(
         {patente : patente},
         {$set :
             {
                 "chofer" :chofer,
             }
-        })
+    })
     
-    // Hacer la asignacion del Chofer al vehiculo (al revés)
-
     return result
 }
 
@@ -118,7 +124,7 @@ async function putVehiculo(id,vehiculo){
 
 
 async function deleteVehiculo(id) {
-    const vehiculo = await getvehiculo(id)
+    const vehiculo = await getVehiculo(id)
     
     if(!vehiculo){
         throw new Error(`No se encotro ningun vehiculo con id ${id}`)
@@ -148,4 +154,4 @@ async function findByPatente(patente){
     return vehiculo;
 }
 
-module.exports = { getAllVehiculos,getVehiculo,addVehiculo,putVehiculo,deleteVehiculo,asignarChoferVehiculo,asignarViajeVehiculo,findByPatente}
+module.exports = { getAllVehiculos,getVehiculo,addVehiculo,putVehiculo,deleteVehiculo,asignarChoferAvehiculo,asignarViajeVehiculo,findByPatente}
