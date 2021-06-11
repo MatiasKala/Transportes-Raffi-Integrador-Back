@@ -5,8 +5,13 @@ const data = require('../data/hojaDeRuta')
 // /hojaDeRuta
 
 router.get('/clima', async function(req, res, next) {
-  const clima = await data.getClimaBuenosAires()
-  res.send(clima)
+    try {
+        const clima = await data.getClimaBuenosAires()
+        res.send(clima)
+    } catch (error) {
+        console.log(error);
+        res.send(error)
+    }
 });
 
 module.exports=router

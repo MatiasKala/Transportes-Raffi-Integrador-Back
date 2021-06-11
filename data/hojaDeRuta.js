@@ -1,10 +1,9 @@
+const axios = require('axios')
 require('dotenv').config()
-import axios from "axios";
 
 const openWeatherEndpoint = 
-'http://api.openweathermap.org/data/2.5/weather'+
-'q=Buenos Aires,ar&APPID='+process.env.OPEN_WEATHER_API_KEY+
-'{{APID}}&lang=es'
+'http://api.openweathermap.org/data/2.5/weather?'+
+'q=Buenos Aires,ar&APPID='+process.env.OPEN_WEATHER_API_KEY
 
 // Documentacion API
 // https://openweathermap.org/
@@ -12,8 +11,12 @@ const openWeatherEndpoint =
 
 
 async function getClimaBuenosAires(){
-    const response = await axios(openWeatherEndpoint)
-    return response
+    try {
+        const response = await axios.get(openWeatherEndpoint)
+        return response.data
+    } catch (error) {
+        throw Error(error)
+    }
 }
 
 module.exports={getClimaBuenosAires}
