@@ -11,9 +11,8 @@ var vehiculosRouter = require('./routes/vehiculos');
 var clientesRouter = require('./routes/clientes');
 var viajesRouter = require('./routes/viajes');
 
-var app = express();
+var app = express(); 
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
