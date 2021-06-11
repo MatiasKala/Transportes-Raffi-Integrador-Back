@@ -10,6 +10,7 @@ var choferesRouter = require('./routes/choferes');
 var vehiculosRouter = require('./routes/vehiculos');
 var clientesRouter = require('./routes/clientes');
 var viajesRouter = require('./routes/viajes');
+var hojaDeRutaRouter = require('./routes/hojaDeRuta');
 
 var app = express(); 
 
@@ -28,6 +29,7 @@ app.use('/choferes', choferesRouter);
 app.use('/vehiculos', vehiculosRouter);
 app.use('/clientes', clientesRouter);
 app.use('/viajes', viajesRouter);
+app.use('/hojaDeRuta', hojaDeRutaRouter);
 // app.use('/services', servicesRouter);
 
 // catch 404 and forward to error handler
