@@ -1,7 +1,6 @@
 const connection = require('./connection')
 const mongodb = require('mongodb')
 const getChofer = require('../data/choferes').getChofer
-const asignarVehiculoAchofer = require('../data/choferes').asignarVehiculoAchofer
 
 async function getAllVehiculos(){
     const connectiondb = await connection.getConnection()
@@ -58,10 +57,6 @@ async function asignarViajeVehiculo(patente,viaje) {
 
 async function asignarChoferAvehiculo(patente,idChofer) { 
     
-    console.log('LLEGUE AL DATA ');
-
-    console.log(patente,'\n',idChofer);
-
     let vehiculo= await getVehiculoByPatente(patente)
 
     if(!vehiculo){
@@ -75,10 +70,6 @@ async function asignarChoferAvehiculo(patente,idChofer) {
         throw new Error(`No se encontro ningun chofer con id ${idChofer}`)      
     }
         
-    vehiculo.chofer = chofer 
-
-    await asignarVehiculoAchofer(vehiculo,chofer)
-    
     const connectiondb = await connection.getConnection()
 
     const result = await connectiondb.db('TransportesRaffi')

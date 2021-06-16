@@ -18,12 +18,6 @@ async function getClimaBuenosAires(ciudadRecibida){
     try {
 
         var llamada = new Llamada(ciudadRecibida)
-
-        console.log(llamada);
-
-        // if(ciudadRecibida != ''){
-        //      = ciudadRecibida
-        // }
         
         const response = await axios.get(llamada.uri)
         
@@ -36,7 +30,6 @@ async function getClimaBuenosAires(ciudadRecibida){
 
 function obtenerDatosNecesarios(respuesta) {
     
-    let data = {}
 
     data.weather = respuesta.data.weather
     data.main = respuesta.data.main

@@ -6,7 +6,6 @@ const auth = require('../middleware/auth')
 // /clientes
 
 router.get('/',auth, async function(req, res, next) {
-    console.log('en clientes')
   const clientes = await data.getAllClientes()
   res.send(clientes)
 });

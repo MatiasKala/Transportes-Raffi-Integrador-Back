@@ -23,7 +23,6 @@ async function getChofer(id){
 
 async function addChofer(chofer){
     const connectiondb = await connection.getConnection()
-    chofer.vehiculosAsignados = []
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Choferes')
     .insertOne(chofer)
@@ -31,39 +30,6 @@ async function addChofer(chofer){
     return result
 }
 
-async function asignarVehiculoAchofer(vehiculo,chofer) {
-    //Ya se validaron los parametros en el metodo que viene 
-    //desde vehículo
-    try {
-
-        console.log('Llegue a Asignar Vehiculo de dataChoferes');
-
-        console.log('Vehiculos asignados actuales',chofer.vehiculosAsignados);
-
-        const newVehiculos = chofer.vehiculosAsignados         
-
-        newVehiculos.push(vehiculo)
-           
-        console.log('Array a asignar ',newVehiculos);
-
-        const connectiondb = await connection.getConnection()
-
-        const result = await connectiondb.db('TransportesRaffi')
-        .collection('Choferes')
-        .updateOne(
-            {_id : mongodb.ObjectID(chofer._id)}, // Encuentra la entidad a mofidicar,
-            {$set :
-                {
-                    "vehiculosAsignados" : newVehiculos,
-                }
-            })
-        
-        return result
-
-    } catch (error) {
-        console.error('Error en la asignacion del Vehiculo al chofer\n',error);
-    }
-}
 
 async function putChofer(id,chofer){
     const connectiondb = await connection.getConnection()
@@ -124,4 +90,4 @@ async function findByCUIT(CUIT){
     return chofer
 }
 
-module.exports = { getAllChoferes, getChofer, addChofer,asignarVehiculoAchofer , putChofer,deleteChofer, findByCUIT }
+module.exports = { getAllChoferes, getChofer, addChofer , putChofer,deleteChofer, findByCUIT }
