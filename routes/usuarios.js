@@ -24,8 +24,13 @@ router.get('/:id', async function(req, res, next) {
 });
 
 router.post('/', async (req, res) =>{
-  const result = await data.addUser(req.body)
-  res.send(result)
+  try {
+    const result = await data.addUser(req.body)
+    res.send(result)
+  } catch (error) {
+    console.log(error);
+    res.status(409).send(error.message)
+  }
 });
 
 router.put('/:id', auth, async function(req, res, next) {
@@ -33,8 +38,8 @@ router.put('/:id', auth, async function(req, res, next) {
     const result = await data.putUser(req.params.id,req.body)
     res.send(result)    
   } catch (error) {
-    res.send(error.message)    
     console.error(error);
+    res.send(error.message)    
   }
 });
 

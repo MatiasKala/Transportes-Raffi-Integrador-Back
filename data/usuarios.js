@@ -1,7 +1,8 @@
 const connection = require('./connection')
 const mongodb = require('mongodb')
 const bcrypt = require('bcrypt')
-const jsonwebtoken = require('jsonwebtoken')
+const jsonwebtoken = require('jsonwebtoken');
+const { use } = require('../routes/usuarios');
 require('dotenv').config();
 
 async function getAllUsers(){
@@ -26,11 +27,16 @@ async function getUser(id){
 async function addUser(user){
     const connectiondb = await connection.getConnection()
 
+    if(findByEmail(user.email)){
+        throw new Error('Ya existe un usuario registrado con el email ',user.email)
+    }
+
     user.password = await bcrypt.hash(user.password,4)
 
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Usuarios')
     .insertOne(user)
+
 
     return result
 }
@@ -98,6 +104,16 @@ async function findByCredentials(email , password){
     if(!result){
         throw new Error('Credenciales no validas')
     }
+
+    return user
+}
+
+async function findByEmail(email){
+    const connectiondb = await connection.getConnection()
+
+    const user = await connectiondb.db('TransportesRaffi')
+    .collection('Usuarios')
+    .findOne({email : email})
 
     return user
 }
