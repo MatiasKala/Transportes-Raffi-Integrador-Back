@@ -25,18 +25,18 @@ async function getUser(id){
 }
 
 async function addUser(user){
-    const connectiondb = await connection.getConnection()
 
-    if(findByEmail(user.email)){
+    if(findByEmail(user.email) == null){
         throw new Error('Ya existe un usuario registrado con el email ',user.email)
     }
 
     user.password = await bcrypt.hash(user.password,4)
 
+    const connectiondb = await connection.getConnection()
+
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Usuarios')
     .insertOne(user)
-
 
     return result
 }

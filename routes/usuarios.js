@@ -23,16 +23,6 @@ router.get('/:id', async function(req, res, next) {
 
 });
 
-router.post('/', async (req, res) =>{
-  try {
-    const result = await data.addUser(req.body)
-    res.send(result)
-  } catch (error) {
-    console.log(error);
-    res.status(409).send(error.message)
-  }
-});
-
 router.put('/:id', auth, async function(req, res, next) {
   try {
     const result = await data.putUser(req.params.id,req.body)
@@ -52,6 +42,17 @@ router.delete('/:id', auth, async function(req, res, next) {
     console.error(error)
   }
 
+});
+
+
+router.post('/', async (req, res) =>{
+  try {
+    const result = await data.addUser(req.body)
+    res.send(result)
+  } catch (error) {
+    console.log(error);
+    res.status(409).send(error.message)
+  }
 });
 
 router.post('/login', async (req, res)=>{
