@@ -1,3 +1,4 @@
+const { json } = require('express');
 var express = require('express');
 var router = express.Router();
 const data = require('../data/usuarios')
@@ -52,9 +53,9 @@ router.post('/login', async (req, res)=>{
   try {
     const user = await data.findByCredentials(req.body.email, req.body.password)
     const token = data.generateAuthToken(user)
-    res.send({user, token})
+    res.send(json({user, token}))
   } catch (error) {
-    res.status(401).send(error.message)
+    res.status(401).send(error)
   }
 });
 
