@@ -26,7 +26,7 @@ async function getUser(id){
 
 async function addUser(user){
 
-    if(findByEmail(user.email) == null){
+    if(await findByEmail(user.email)){
         throw new Error('Ya existe un usuario registrado con el email ',user.email)
     }
 
