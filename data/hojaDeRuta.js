@@ -55,10 +55,10 @@ async function obtenerCoordenadas(req) {
         }
 }
 
-
+//Devuelve un JSON (GEOJSON) integrar con openstreetmap 
 async function calcularRuta(req){
     try {
-        let url = 'https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248842afa0364db44e0bb4e07b8a08911e4'
+        let url = 'https://api.openrouteservice.org/v2/directions/driving-car/geojson?api_key='+process.env.ORS_API_KEY
         
         const response = await axios.post(url, req)
           return response.data
