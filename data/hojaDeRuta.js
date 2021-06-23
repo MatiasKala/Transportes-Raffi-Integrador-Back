@@ -1,4 +1,5 @@
 const axios = require('axios')
+const { json } = require('express')
 require('dotenv').config()
 
 class Llamada {    
@@ -40,4 +41,30 @@ function obtenerDatosNecesarios(respuesta) {
     return data
 }
 
-module.exports={getClimaBuenosAires}
+
+async function obtenerCoordenadas(req) {
+    try {
+        let url = 'https://api.openrouteservice.org/geocode/search/structured?api_key='+process.env.ORS_API_KEY+
+                    '&locality='+req.localidad+'&address='+ req.direccion
+        console.log(url)
+        const response = await axios.get(url)
+        return response.data
+            
+        } catch (error) {
+            throw Error(error)
+        }
+}
+
+
+async function calcularRuta(req){
+    try {
+        let url = 'https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248842afa0364db44e0bb4e07b8a08911e4'
+        
+        const response = await axios.post(url, req)
+          return response.data
+        } catch (error) {
+             throw Error(error)
+        }
+}
+
+module.exports = {getClimaBuenosAires, calcularRuta, obtenerCoordenadas}
