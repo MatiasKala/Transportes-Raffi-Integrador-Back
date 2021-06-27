@@ -32,9 +32,6 @@ async function getVehiculoByPatente(patente){
 
 async function addVehiculo(vehiculo){
     const connectiondb = await connection.getConnection()
-    // VALIDAR TIPO Y CHOFER
-    vehiculo.viajesAsignados = []
-    vehiculo.chofer = {}
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Vehiculos')
     .insertOne(vehiculo)
