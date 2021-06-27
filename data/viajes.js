@@ -22,7 +22,7 @@ async function getViaje(id){
     return viaje
 }
 
-async function addViaje(cuitCliente, patente, viaje){
+async function addViaje(){
     const vehiculo = await findByPatente(patente)
     const cliente = await findByCUIT(cuitCliente)
 

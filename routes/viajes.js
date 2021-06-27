@@ -23,8 +23,8 @@ router.get('/:id',auth, async function(req, res, next) {
 
 });
 
-router.post('/cliente/:cuitCliente/vehiculo/:patente',auth, async (req, res) =>{
-  const result = await viajesDAO.addViaje(req.params.cuitCliente, req.params.patente, req.body)
+router.post('/',auth, async (req, res) =>{
+  const result = await viajesDAO.addViaje(req.body)
   res.send(result)
 });
 
