@@ -30,7 +30,7 @@ router.post('/',auth, async (req, res) =>{
 router.put('/:id', auth, async function(req, res, next) {
   try {
     const result = await data.putChofer(req.params.id,req.body)
-    res.send(result)    
+    res.send('Se logra hacer el  put', result)    
   } catch (error) {
     res.send(error.message)    
     console.error(error);
