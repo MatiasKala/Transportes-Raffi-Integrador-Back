@@ -22,27 +22,40 @@ async function getViaje(id){
     return viaje
 }
 
-async function addViaje(){
-    const vehiculo = await findByPatente(patente)
-    const cliente = await findByCUIT(cuitCliente)
-
-    if(!vehiculo){
-         throw new Error(`No se encontro ningun vehiculo con patente ${patente}`)        
-     }
-
-    if(!cliente){
-        throw new Error(`No se encontro ningun cliente con id ${cuitCliente}`)        
-    }
-
-    viaje.vehiculo = vehiculo
-    viaje.cliente = cliente
-
+async function addViaje(viaje){
     const connectiondb = await connection.getConnection()
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Viajes')
     .insertOne(viaje)
     
     return result
+}
+
+async function putViaje(id,viaje){
+    const connectiondb = await connection.getConnection()
+    
+    const oldViaje= await getViaje(id)
+
+    if(!oldViaje){
+        throw new Error(`No se encotro ningun viaje con id ${id}`)       
+    }
+    console.log('VIAJE VIEJO   ', oldViaje);
+    console.log('VIAJE NUEVO   ', viaje);
+    //Validar Parametros
+    const result = await connectiondb.db('TransportesRaffi')
+    .collection('Viajes')
+    .updateOne(
+        {_id : mongodb.ObjectID(id)},
+        {$set :
+            {
+                "fechaEntrega" :viaje.fechaEntrega ?? oldViaje.fechaEntrega,
+                "domicilioEntrega" :viaje.domicilioEntrega ?? oldViaje.domicilioEntrega,
+                "descripcionPaquete" :viaje.descripcionPaquete ?? oldViaje.descripcionPaquete,  
+            }
+        })
+
+    return result
+
 }
 
 async function deleteViaje(id) {
@@ -63,4 +76,4 @@ async function deleteViaje(id) {
 }
 
 
-module.exports = { getAllViajes, getViaje, addViaje, deleteViaje }
+module.exports = { getAllViajes, getViaje, addViaje, putViaje, deleteViaje }

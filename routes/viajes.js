@@ -30,6 +30,8 @@ router.post('/',auth, async (req, res) =>{
 
 router.put('/:id', auth, async function(req, res, next) {
   try {
+    console.log('ID de los viajes ',req.params.id)
+    console.log('Modificaciones ', req.body)
     const result = await viajesDAO.putViaje(req.params.id,req.body)
     res.send(result)    
   } catch (error) {
