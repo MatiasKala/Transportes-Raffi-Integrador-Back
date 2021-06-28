@@ -1,7 +1,7 @@
 const connection = require('./connection')
 const mongodb = require('mongodb')
-const { findByCUIT } = require('./clientes')
-const { findByPatente } = require('./vehiculos')
+const { findByCUIT, getCliente } = require('./clientes')
+const { findByPatente, getVehiculo } = require('./vehiculos')
 
 async function getAllViajes(){
     const connectiondb = await connection.getConnection()
@@ -58,6 +58,60 @@ async function putViaje(id,viaje){
 
 }
 
+async function asignarClienteoVehiculoAviaje(idClienteOviaje,idViaje) { 
+    
+    console.log('LLEGUE AL ASIGNAR DATA');
+
+    let viaje= await getViaje(idViaje)
+
+    if(!viaje){
+        throw new Error(`No se encontro ningun viaje con idViaje ${idViaje}`)      
+    }
+
+    const cliente = await getCliente(idClienteOviaje)
+
+    if(!cliente){
+        var vehiculo = await getVehiculo(idClienteOviaje)
+        if(!vehiculo){
+            throw new Error(`No se encontro ningun Cliente o Vehiculo con id ${idClienteOviaje}`)    
+        }
+    }
+
+    console.log('soy vehiculo', vehiculo)
+        
+    const connectiondb = await connection.getConnection()
+
+    if(cliente){
+        
+        const result = await connectiondb.db('TransportesRaffi')
+        .collection('Viajes')
+        .updateOne(
+            {_id: mongodb.ObjectID(idViaje)},
+            {$set :
+                {
+                    'cliente' :cliente.nombre +', Direccion '+ cliente.direccion,
+                    // 'cliente' :'ID '+cliente._id +' CUIT '+ cliente.CUIT,
+                }
+        })
+    }
+
+    if(vehiculo){
+        const result = await connectiondb.db('TransportesRaffi')
+        .collection('Viajes')
+        .updateOne(
+            {_id: mongodb.ObjectID(idViaje)},
+            {$set :
+                {
+                    'vehiculo' :vehiculo.patente +', '+ vehiculo.marca,
+                }
+        })
+    }
+
+
+
+    return result
+}
+
 async function deleteViaje(id) {
     const viaje = await getViaje(id)
     
@@ -76,4 +130,4 @@ async function deleteViaje(id) {
 }
 
 
-module.exports = { getAllViajes, getViaje, addViaje, putViaje, deleteViaje }
+module.exports = { getAllViajes, getViaje, addViaje, putViaje, asignarClienteoVehiculoAviaje, deleteViaje }

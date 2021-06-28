@@ -30,6 +30,33 @@ async function addCliente(cliente){
     return result
 }
 
+
+async function putCliente(id,cliente){
+    const connectiondb = await connection.getConnection()
+    
+    const oldCliente= await getCliente(id)
+
+    if(!oldCliente){
+        throw new Error(`No se encotro ningun Cliente con id ${id}`)       
+    }
+    //Validar Parametros
+    const result = await connectiondb.db('TransportesRaffi')
+    .collection('Clientes')
+    .update(
+        {_id : mongodb.ObjectID(id)},
+        {$set :
+            {
+                "cuit" :cliente.cuit ?? oldCliente.cuit,
+                "nombre" :cliente.nombre ?? oldCliente.nombre,
+                "direccion" :cliente.direccion ?? oldCliente.direccion,  
+                "tipoCobro" :cliente.tipoCobro ?? oldCliente.tipoCobro,  
+            }
+        })
+
+    return result
+
+}
+
 async function deleteCliente(id) {
     const cliente = await getCliente(id)
     
@@ -61,4 +88,4 @@ async function findByCUIT(cuit){
 }
 
 
-module.exports = { getAllClientes, getCliente, addCliente, deleteCliente, findByCUIT }
+module.exports = { getAllClientes, getCliente, addCliente, putCliente, deleteCliente, findByCUIT }

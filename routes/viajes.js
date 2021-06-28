@@ -28,6 +28,17 @@ router.post('/',auth, async (req, res) =>{
   res.send(result)
 });
 
+router.put('/:idClienteoViaje/:idViaje',async function(req, res, next) {
+  try {
+    console.log(req.params);
+    const result = await viajesDAO.asignarClienteoVehiculoAviaje(req.params.idClienteoViaje,req.params.idViaje)
+    res.send(result)    
+  } catch (error) {
+    res.send(error.message)    
+    console.error(error);
+  }
+});
+
 router.put('/:id', auth, async function(req, res, next) {
   try {
     console.log('ID de los viajes ',req.params.id)
