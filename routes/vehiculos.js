@@ -38,9 +38,9 @@ router.put('/:id', auth, async function(req, res, next) {
   }
 });
 
-router.put('/:patente/:idChofer', auth, async function(req, res, next) {
+router.put('/:idVehiculo/:idChofer', auth, async function(req, res, next) {
   try {
-    const result = await data.asignarChoferAvehiculo(req.params.patente,req.params.idChofer)
+    const result = await data.asignarChoferAvehiculo(req.params.idVehiculo,req.params.idChofer)
     res.send(result)    
   } catch (error) {
     res.send(error.message)    

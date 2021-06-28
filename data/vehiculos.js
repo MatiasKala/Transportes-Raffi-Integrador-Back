@@ -52,12 +52,12 @@ async function asignarViajeVehiculo(patente,viaje) {
 }
 
 
-async function asignarChoferAvehiculo(patente,idChofer) { 
+async function asignarChoferAvehiculo(idVehiculo,idChofer) { 
     
-    let vehiculo= await getVehiculoByPatente(patente)
+    let vehiculo= await getVehiculo(idVehiculo)
 
     if(!vehiculo){
-        throw new Error(`No se encontro ningun vehiculo con patente ${patente}`)      
+        throw new Error(`No se encontro ningun vehiculo con idVehiculo ${idVehiculo}`)      
     }
     //Validar Chofer
 
