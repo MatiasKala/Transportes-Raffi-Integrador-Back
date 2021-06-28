@@ -54,11 +54,14 @@ async function asignarViajeVehiculo(patente,viaje) {
 
 async function asignarChoferAvehiculo(idVehiculo,idChofer) { 
     
+    console.log('LLEGUE AL ASIGNAR DATA');
+
     let vehiculo= await getVehiculo(idVehiculo)
 
     if(!vehiculo){
         throw new Error(`No se encontro ningun vehiculo con idVehiculo ${idVehiculo}`)      
     }
+    console.log('Vehiculo' ,vehiculo);
     //Validar Chofer
 
     const chofer = await getChofer(idChofer)
@@ -66,16 +69,18 @@ async function asignarChoferAvehiculo(idVehiculo,idChofer) {
     if(!chofer){
         throw new Error(`No se encontro ningun chofer con id ${idChofer}`)      
     }
+    console.log('Chofer', chofer);
         
     const connectiondb = await connection.getConnection()
 
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Vehiculos')
     .updateOne(
-        {patente : patente},
+        {_id: mongodb.ObjectID(idVehiculo)},
         {$set :
             {
-                "chofer" :chofer,
+                'chofer' :chofer.nombre +' '+ chofer.apellido,
+                // 'chofer' :'ID '+chofer._id +' CUIT '+ chofer.CUIT,
             }
     })
     
