@@ -15,9 +15,8 @@ class Llamada {
 // Que devuelve? Leer: Weather fields in API response
 
 
-async function getClimaBuenosAires(ciudadRecibida){
+async function getClima(ciudadRecibida){
     try {
-
         var llamada = new Llamada(ciudadRecibida)
         
         const response = await axios.get(llamada.uri)
@@ -31,14 +30,13 @@ async function getClimaBuenosAires(ciudadRecibida){
 
 function obtenerDatosNecesarios(respuesta) {
     
-
-    data.weather = respuesta.data.weather
-    data.main = respuesta.data.main
-    data.clouds = respuesta.data.clouds
-    data.rain = respuesta.data.rain
-    data.name = respuesta.data.name
-
-    return data
+    return {
+        weather:respuesta.data.weather,
+        main:respuesta.data.main,
+        clouds:respuesta.data.clouds,
+        rain:respuesta.data.rain,
+        name:respuesta.data.nam,
+    }
 }
 
 
@@ -67,4 +65,4 @@ async function calcularRuta(req){
         }
 }
 
-module.exports = {getClimaBuenosAires, calcularRuta, obtenerCoordenadas}
+module.exports = {getClima, calcularRuta, obtenerCoordenadas}

@@ -2,6 +2,7 @@ const connection = require('./connection')
 const mongodb = require('mongodb')
 const { findByCUIT, getCliente } = require('./clientes')
 const { findByPatente, getVehiculo } = require('./vehiculos')
+const moment = require('moment')
 
 async function getAllViajes(){
     const connectiondb = await connection.getConnection()
@@ -11,6 +12,33 @@ async function getAllViajes(){
     .toArray()
   
     return viajes
+}
+
+async function getViajesDelDia(){
+    const connectiondb = await connection.getConnection()
+
+    let fechaHoy= getFechaHoy()
+
+    const viajes = await connectiondb.db('TransportesRaffi')
+    .collection('Viajes')
+    .find({fechaEntrega : fechaHoy})
+    .toArray()
+
+    return viajes
+}
+
+function getFechaHoy(){
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return ( [year, month, day].join('-'))
 }
 
 async function getViaje(id){
@@ -130,4 +158,4 @@ async function deleteViaje(id) {
 }
 
 
-module.exports = { getAllViajes, getViaje, addViaje, putViaje, asignarClienteoVehiculoAviaje, deleteViaje }
+module.exports = { getAllViajes, getViaje, getViajesDelDia, addViaje, putViaje, asignarClienteoVehiculoAviaje, deleteViaje }

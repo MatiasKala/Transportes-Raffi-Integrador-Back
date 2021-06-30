@@ -22,7 +22,13 @@ async function getChofer(id){
 }
 
 async function addChofer(chofer){
+    
+    if(await findByCUIT(chofer.CUIT)){
+        throw new Error('Ya existe un chofer registrado con el CUIT ',chofer.CUIT)
+    }
+
     const connectiondb = await connection.getConnection()
+    
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Choferes')
     .insertOne(chofer)
@@ -32,13 +38,18 @@ async function addChofer(chofer){
 
 
 async function putChofer(id,chofer){
-    const connectiondb = await connection.getConnection()
-    
+
+    if(chofer.CUIT && await findByCUIT(chofer.CUIT)){
+        throw new Error('Ya existe un chofer registrado con el CUIT ',chofer.CUIT)
+    }
+
     const oldChofer= await getChofer(id)
 
     if(!oldChofer){
         throw new Error(`No se encotro ningun chofer con id ${id}`)        
     }
+
+    const connectiondb = await connection.getConnection()
     //Validar Parametros
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Choferes')
@@ -82,10 +93,6 @@ async function findByCUIT(CUIT){
     const chofer = await connectiondb.db('TransportesRaffi')
     .collection('Choferes')
     .findOne({CUIT : CUIT})
-
-    if(!chofer){
-        throw new Error(`No se encotro ningun chofer con CUIT ${CUIT}`)
-    }
 
     return chofer
 }

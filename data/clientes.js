@@ -46,7 +46,7 @@ async function putCliente(id,cliente){
         {_id : mongodb.ObjectID(id)},
         {$set :
             {
-                "cuit" :cliente.cuit ?? oldCliente.cuit,
+                "CUIT" :cliente.cuit ?? oldCliente.cuit,
                 "nombre" :cliente.nombre ?? oldCliente.nombre,
                 "direccion" :cliente.direccion ?? oldCliente.direccion,  
                 "tipoCobro" :cliente.tipoCobro ?? oldCliente.tipoCobro,  

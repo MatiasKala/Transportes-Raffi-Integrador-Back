@@ -1,13 +1,24 @@
 var express = require('express');
 var router = express.Router();
 const data = require('../data/hojaDeRuta')
+const {getViajesDelDia} = require('../data/viajes')
 const auth = require('../middleware/auth')
 
 // /hojaDeRuta
 
+router.get('/viajes', async function(req, res, next) {
+  try {
+      const viajes = await getViajesDelDia()
+      res.send(viajes)
+  } catch (error) {
+      console.log(error);
+      res.send(error)
+  }
+});
+
 router.get('/clima', async function(req, res, next) {
     try {
-        const clima = await data.getClimaBuenosAires()
+        const clima = await data.getClima()
         res.send(clima)
     } catch (error) {
         console.log(error);
