@@ -40,7 +40,7 @@ async function addChofer(chofer){
 async function putChofer(id,chofer){
 
     if(chofer.CUIT && await findByCUIT(chofer.CUIT)){
-        throw new Error('Ya existe un chofer registrado con el CUIT ',chofer.CUIT)
+        throw new Error('Ya existe un chofer registrado con el CUIT '+chofer.CUIT)
     }
 
     const oldChofer= await getChofer(id)

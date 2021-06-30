@@ -22,6 +22,12 @@ async function getCliente(id){
 }
 
 async function addCliente(cliente){
+
+
+    if(await findByCUIT(cliente.CUIT)){
+        throw new Error('Ya existe un cliente registrado con el CUIT '+cliente.CUIT)
+    }
+
     const connectiondb = await connection.getConnection()
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Clientes')
@@ -39,6 +45,11 @@ async function putCliente(id,cliente){
     if(!oldCliente){
         throw new Error(`No se encotro ningun Cliente con id ${id}`)       
     }
+
+    if(cliente.CUIT && await findByCUIT(cliente.CUIT)){
+        throw new Error('Ya existe un cliente registrado con el CUIT ',cliente.CUIT)
+    }
+
     //Validar Parametros
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Clientes')
@@ -46,7 +57,7 @@ async function putCliente(id,cliente){
         {_id : mongodb.ObjectID(id)},
         {$set :
             {
-                "CUIT" :cliente.cuit ?? oldCliente.cuit,
+                "CUIT" :cliente.CUIT ?? oldCliente.CUIT,
                 "nombre" :cliente.nombre ?? oldCliente.nombre,
                 "direccion" :cliente.direccion ?? oldCliente.direccion,  
                 "tipoCobro" :cliente.tipoCobro ?? oldCliente.tipoCobro,  
@@ -73,16 +84,12 @@ async function deleteCliente(id) {
     return result
 }
 
-async function findByCUIT(cuit){
+async function findByCUIT(CUIT){
     const connectiondb = await connection.getConnection()
 
     const chofer = await connectiondb.db('TransportesRaffi')
     .collection('Clientes')
-    .findOne({cuit : cuit})
-
-    if(!chofer){
-        throw new Error(`No se encotro ningun cliente con CUIT ${cuit}`)
-    }
+    .findOne({CUIT : CUIT})
 
     return chofer
 }

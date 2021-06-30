@@ -22,8 +22,12 @@ router.get('/:id',auth, async function(req, res, next) {
 });
 
 router.post('/',auth, async (req, res) =>{
-  const result = await data.addCliente(req.body)
-  res.send(result)
+  try {
+    const result = await data.addCliente(req.body)
+    res.send(result)
+  } catch (error) {
+    res.send(error.message)
+  }
 });
 
 router.put('/:id', auth, async function(req, res, next) {
