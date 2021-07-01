@@ -2,7 +2,7 @@ const connection = require('./connection')
 const mongodb = require('mongodb')
 const { findByCUIT, getCliente } = require('./clientes')
 const { findByPatente, getVehiculo } = require('./vehiculos')
-const moment = require('moment')
+// const moment = require('moment')
 
 async function getAllViajes(){
     const connectiondb = await connection.getConnection()
@@ -67,8 +67,6 @@ async function putViaje(id,viaje){
     if(!oldViaje){
         throw new Error(`No se encotro ningun viaje con id ${id}`)       
     }
-    console.log('VIAJE VIEJO   ', oldViaje);
-    console.log('VIAJE NUEVO   ', viaje);
     //Validar Parametros
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Viajes')
@@ -117,7 +115,7 @@ async function asignarClienteoVehiculoAviaje(idClienteOviaje,idViaje) {
             {_id: mongodb.ObjectID(idViaje)},
             {$set :
                 {
-                    'cliente' :cliente.nombre +', Direccion '+ cliente.direccion,
+                    'cliente' :cliente,
                     // 'cliente' :'ID '+cliente._id +' CUIT '+ cliente.CUIT,
                 }
         })
@@ -130,7 +128,7 @@ async function asignarClienteoVehiculoAviaje(idClienteOviaje,idViaje) {
             {_id: mongodb.ObjectID(idViaje)},
             {$set :
                 {
-                    'vehiculo' :vehiculo.patente +', '+ vehiculo.marca,
+                    'vehiculo' :vehiculo,
                 }
         })
     }

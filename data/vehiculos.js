@@ -31,6 +31,11 @@ async function getVehiculoByPatente(patente){
 }
 
 async function addVehiculo(vehiculo){
+
+    if (getVehiculoByPatente(vehiculo.patente)) {
+        throw new Error ('Ya existe un vehiculo con la patente '+vehiculo.patente)
+    }
+
     const connectiondb = await connection.getConnection()
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Vehiculos')
@@ -79,7 +84,7 @@ async function asignarChoferAvehiculo(idVehiculo,idChofer) {
         {_id: mongodb.ObjectID(idVehiculo)},
         {$set :
             {
-                'chofer' :chofer.nombre +' '+ chofer.apellido,
+                'chofer' :chofer
                 // 'chofer' :'ID '+chofer._id +' CUIT '+ chofer.CUIT,
             }
     })
@@ -88,13 +93,20 @@ async function asignarChoferAvehiculo(idVehiculo,idChofer) {
 }
 
 async function putVehiculo(id,vehiculo){
-    const connectiondb = await connection.getConnection()
+
+
+    if (vehiculo.patente && getVehiculoByPatente(vehiculo.patente)) {
+        throw new Error ('Ya existe un vehiculo con la patente '+vehiculo.patente)
+    }
     
     const oldVehiculo= await getVehiculo(id)
 
     if(!oldVehiculo){
         throw new Error(`No se encotro ningun vehiculo con id ${id}`)       
     }
+
+    const connectiondb = await connection.getConnection()
+
     //Validar Parametros
     const result = await connectiondb.db('TransportesRaffi')
     .collection('Vehiculos')

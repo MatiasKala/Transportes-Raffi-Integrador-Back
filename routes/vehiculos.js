@@ -16,15 +16,18 @@ router.get('/:id',auth, async function(req, res, next) {
     const vehiculo = await data.getVehiculo(req.params.id)
     res.send(vehiculo)    
   } catch (error) {
-    res.send(error.message)    
-    console.error(error)
+    res.status(403).send(error.message)
   }
 
 });
 
 router.post('/',auth, async (req, res) =>{
-  const result = await data.addVehiculo(req.body)
-  res.send(result)
+  try {
+    const result = await data.addVehiculo(req.body)
+    res.send(result)
+  } catch (error) {
+    res.status(403).send(error.message)    
+  }
 });
 
 
@@ -33,8 +36,7 @@ router.put('/:id', auth, async function(req, res, next) {
     const result = await data.putVehiculo(req.params.id,req.body)
     res.send(result)    
   } catch (error) {
-    res.send(error.message)    
-    console.error(error);
+    res.status(403).send(error.message)    
   }
 });
 

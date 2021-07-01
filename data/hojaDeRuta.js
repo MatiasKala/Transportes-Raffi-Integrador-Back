@@ -28,14 +28,27 @@ async function getClima(ciudadRecibida){
     }
 }
 
+async function getIconoClima(){
+    try {
+
+        // DECIDIR SI SE VA A MOSTRAR OTRO TIPO DE 
+        // CLIMA SI SE LLAMA CON OTRA CIUDAD 
+        const clima = await getClima(undefined)
+        
+        return clima.weather[0].icon
+        
+    } catch (error) {
+        throw Error(error)
+    }
+}
+
 function obtenerDatosNecesarios(respuesta) {
     
     return {
         weather:respuesta.data.weather,
         main:respuesta.data.main,
         clouds:respuesta.data.clouds,
-        rain:respuesta.data.rain,
-        name:respuesta.data.nam,
+        name:respuesta.data.name,
     }
 }
 
@@ -65,4 +78,4 @@ async function calcularRuta(req){
         }
 }
 
-module.exports = {getClima, calcularRuta, obtenerCoordenadas}
+module.exports = {getClima, getIconoClima, calcularRuta, obtenerCoordenadas}

@@ -119,7 +119,7 @@ async function findByEmail(email){
 }
 
 function generateAuthToken(user){
-    const token = jsonwebtoken.sign({_id:user._id}, process.env.SECRET, {expiresIn: '4h'})
+    const token = jsonwebtoken.sign({_id:user._id}, process.env.SECRET, {expiresIn: '5h'})
     return token
 }
 
