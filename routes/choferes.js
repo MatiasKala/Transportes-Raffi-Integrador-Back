@@ -27,7 +27,8 @@ router.post('/',auth, async (req, res) =>{
     const result = await data.addChofer(req.body)
     res.send(result)
   } catch (error) {
-    res.send(error.message)
+    console.error(error.message);
+    res.status(403).send({error:error.message})
   }
 });
 
@@ -36,8 +37,8 @@ router.put('/:id', auth, async function(req, res, next) {
     const result = await data.putChofer(req.params.id,req.body)
     res.send(result)    
   } catch (error) {
-    res.send(error.message)    
     console.error(error);
+    res.status(403).send({error:error.message})
   }
 });
 

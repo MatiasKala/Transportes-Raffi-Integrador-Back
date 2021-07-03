@@ -24,7 +24,7 @@ async function getChofer(id){
 async function addChofer(chofer){
     
     if(await findByCUIT(chofer.CUIT)){
-        throw new Error('Ya existe un chofer registrado con el CUIT ',chofer.CUIT)
+        throw new Error('Ya existe un chofer registrado con el CUIT '+chofer.CUIT)
     }
 
     const connectiondb = await connection.getConnection()

@@ -47,7 +47,7 @@ async function putCliente(id,cliente){
     }
 
     if(cliente.CUIT && await findByCUIT(cliente.CUIT)){
-        throw new Error('Ya existe un cliente registrado con el CUIT ',cliente.CUIT)
+        throw new Error('Ya existe un cliente registrado con el CUIT '+cliente.CUIT)
     }
 
     //Validar Parametros
