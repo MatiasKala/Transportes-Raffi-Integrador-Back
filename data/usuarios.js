@@ -29,6 +29,20 @@ async function addUser(user){
     if(await findByEmail(user.email)){
         throw new Error('Ya existe un usuario registrado con el email ',user.email)
     }
+    
+    user.rol=[]
+    
+    if(user.claveAdministrador){
+        if(user.claveAdministrador == process.env.CLAVE_ADMINISTRADOR){
+            user.rol.push('ADMINISTRADOR')
+        } else {
+            throw new Error('Clave de administrador no valida')
+        }
+    }
+
+    delete user.claveAdministrador
+
+    user.rol.push('OBSERVADOR')
 
     user.password = await bcrypt.hash(user.password,4)
 
