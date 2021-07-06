@@ -3,10 +3,11 @@ var router = express.Router()
 const data = require('../data/hojaDeRuta')
 const {getViajesDelDia} = require('../data/viajes')
 const auth = require('../middleware/auth')
+const authAdmin = require('../middleware/authAdmin')
 
 // /hojaDeRuta
 
-router.get('/viajes', async function(req, res, next) {
+router.get('/viajes',auth, async function(req, res, next) {
   try {
       const viajes = await getViajesDelDia()
       res.send(viajes)
@@ -16,7 +17,7 @@ router.get('/viajes', async function(req, res, next) {
   }
 });
 
-router.get('/clima', async function(req, res, next) {
+router.get('/clima',auth, async function(req, res, next) {
     try {
         const clima = await data.getClima()
         res.send(clima)
@@ -26,7 +27,7 @@ router.get('/clima', async function(req, res, next) {
     }
 });
 
-router.get('/clima/icono', async function(req, res, next) {
+router.get('/clima/icono',auth, async function(req, res, next) {
     try {
         const codigo = await data.getIconoClima()
         res.send(codigo)

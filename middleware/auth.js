@@ -1,17 +1,17 @@
-const jsonwebtoken = require('jsonwebtoken');
+const jsonwebtoken = require('jsonwebtoken')
 
 function auth(req, res, next){
     try {
 
-        const token = req.header('Authorization').replace('Bearer ', '');
+        const token = req.header('Authorization').replace('Bearer ', '')
         
-        jsonwebtoken.verify(token, process.env.SECRET);  
+        jsonwebtoken.verify(token, process.env.SECRET)  
 
-        next();
+        next()
     } catch (error) {
-        console.log(error);
-       res.status(401).send({error: error.message});
+        console.log(error)
+       res.status(401).send({error: error.message})
     }
 }
 
-module.exports = auth;
+module.exports = auth

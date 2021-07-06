@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 const data = require('../data/usuarios')
 const auth = require('../middleware/auth')
+const authAdmin = require('../middleware/authAdmin')
 /* GET users listing. */
 
 // /usuarios
@@ -12,7 +13,7 @@ router.get('/', async function(req, res, next) {
   res.send(users)
 });
 
-router.get('/:id', async function(req, res, next) {
+router.get('/:id',auth,authAdmin, async function(req, res, next) {
   try {
     const user = await data.getUser(req.params.id)
     res.send(user)    
@@ -23,7 +24,7 @@ router.get('/:id', async function(req, res, next) {
 
 });
 
-router.put('/:id', auth, async function(req, res, next) {
+router.put('/:id', auth,authAdmin, async function(req, res, next) {
   try {
     const result = await data.putUser(req.params.id,req.body)
     res.send(result)    
@@ -33,7 +34,7 @@ router.put('/:id', auth, async function(req, res, next) {
   }
 });
 
-router.delete('/:id', auth, async function(req, res, next) {
+router.delete('/:id', auth,authAdmin, async function(req, res, next) {
   try {
     const result = await data.deleteUser(req.params.id)
     res.send(result)    
