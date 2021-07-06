@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const viajesDAO = require('../data/viajes')
 const vehiculosDAO = require('../data/vehiculos')
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth');
+const authAdmin = require('../middleware/authAdmin');
 /* GET viajes listing. */
 
 // /viajes
@@ -23,9 +24,14 @@ router.get('/:id',auth, async function(req, res, next) {
 
 });
 
-router.post('/',auth, async (req, res) =>{
-  const result = await viajesDAO.addViaje(req.body)
-  res.send(result)
+router.post('/',auth,authAdmin, async (req, res) =>{
+  try {
+    
+    const result = await viajesDAO.addViaje(req.body)
+    res.send(result)
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.put('/:idClienteoViaje/:idViaje',async function(req, res, next) {

@@ -32,7 +32,7 @@ async function getVehiculoByPatente(patente){
 
 async function addVehiculo(vehiculo){
 
-    if (getVehiculoByPatente(vehiculo.patente)) {
+    if (await getVehiculoByPatente(vehiculo.patente)) {
         throw new Error ('Ya existe un vehiculo con la patente '+vehiculo.patente)
     }
 

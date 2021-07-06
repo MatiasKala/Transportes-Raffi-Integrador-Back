@@ -9,8 +9,12 @@ const authAdmin = require('../middleware/authAdmin')
 // /choferes
 
 router.get('/',auth,authAdmin, async function(req, res, next) {
-  const choferes = await data.getAllChoferes()
-  res.send(choferes)
+  try {
+    const choferes = await data.getAllChoferes()
+    res.send(choferes)
+  } catch (error) {
+    res.status(401).send(error)
+  }
 });
 
 router.get('/:id',auth,authAdmin, async function(req, res, next) {
