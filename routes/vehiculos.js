@@ -41,7 +41,7 @@ router.put('/:id', auth,authAdmin, async function(req, res, next) {
   }
 });
 
-router.put('/:idVehiculo/:idChofer', async function(req, res, next) {
+router.put('/:idVehiculo/:idChofer',auth,authAdmin, async function(req, res, next) {
   try {
     console.log('LLEGUE AL ROUTER');
     const result = await data.asignarChoferAvehiculo(req.params.idVehiculo,req.params.idChofer)

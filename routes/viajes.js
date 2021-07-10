@@ -34,7 +34,7 @@ router.post('/',auth,authAdmin, async (req, res) =>{
   }
 });
 
-router.put('/:idClienteoViaje/:idViaje',async function(req, res, next) {
+router.put('/:idClienteoViaje/:idViaje',auth,authAdmin, async function(req, res, next) {
   try {
     console.log(req.params);
     const result = await viajesDAO.asignarClienteoVehiculoAviaje(req.params.idClienteoViaje,req.params.idViaje)
@@ -45,7 +45,7 @@ router.put('/:idClienteoViaje/:idViaje',async function(req, res, next) {
   }
 });
 
-router.put('/:id', auth, async function(req, res, next) {
+router.put('/:id', auth, authAdmin, async function(req, res, next) {
   try {
     console.log('ID de los viajes ',req.params.id)
     console.log('Modificaciones ', req.body)
@@ -57,7 +57,7 @@ router.put('/:id', auth, async function(req, res, next) {
   }
 });
 
-router.delete('/:id', auth, async function(req, res, next) {
+router.delete('/:id', auth, authAdmin,async function(req, res, next) {
   try {
     const result = await viajesDAO.deleteViaje(req.params.id)
     res.send(result)    
