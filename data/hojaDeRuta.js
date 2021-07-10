@@ -56,7 +56,7 @@ function obtenerDatosNecesarios(respuesta) {
 async function obtenerCoordenadas(req) {
     try {
         let url = 'https://api.openrouteservice.org/geocode/search/structured?api_key='+process.env.ORS_API_KEY+
-                    '&locality='+req.localidad+'&address='+ req.direccion
+                    '&locality='+req.localidad+'&address='+ req.domicilioEntrega
         console.log(url)
         const response = await axios.get(url)
         return response.data
