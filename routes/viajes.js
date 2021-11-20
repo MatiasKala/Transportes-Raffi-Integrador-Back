@@ -8,7 +8,7 @@ const authAdmin = require('../middleware/authAdmin');
 
 // /viajes
 
-router.get('/',auth, async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   const viajes = await viajesDAO.getAllViajes()
   res.send(viajes)
 });
@@ -24,7 +24,7 @@ router.get('/:id',auth, async function(req, res, next) {
 
 });
 
-router.post('/',auth,authAdmin, async (req, res) =>{
+router.post('/', async (req, res) =>{
   try {
     
     const result = await viajesDAO.addViaje(req.body)

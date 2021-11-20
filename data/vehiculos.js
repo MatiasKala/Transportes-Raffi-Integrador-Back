@@ -120,6 +120,7 @@ async function putVehiculo(id,vehiculo){
                 "anio" :vehiculo.anio ?? oldVehiculo.anio,  
                 "seguro" :vehiculo.seguro ?? oldVehiculo.seguro,  
                 "tipo" :vehiculo.tipo ?? oldVehiculo.tipo,  
+                "chofer" :vehiculo.chofer ?? oldVehiculo.chofer,  
             }
         })
 

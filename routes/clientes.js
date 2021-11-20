@@ -7,7 +7,7 @@ const authAdmin = require('../middleware/authAdmin')
 
 // /clientes
 
-router.get('/',auth,authAdmin, async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   const clientes = await data.getAllClientes()
   res.send(clientes)
 });
@@ -23,7 +23,7 @@ router.get('/:id',auth,authAdmin, async function(req, res, next) {
 
 });
 
-router.post('/',auth,authAdmin, async (req, res) =>{
+router.post('/', async (req, res) =>{
   try {
     const result = await data.addCliente(req.body)
     res.send(result)

@@ -78,6 +78,8 @@ async function putViaje(id,viaje){
                 "domicilioEntrega" :viaje.domicilioEntrega ?? oldViaje.domicilioEntrega,
                 "descripcionPaquete" :viaje.descripcionPaquete ?? oldViaje.descripcionPaquete,  
                 "estado" :viaje.estado ?? oldViaje.estado,  
+                "vehiculo":viaje.vehiculo ?? oldViaje.vehiculo,
+                "cliente":viaje.cliente ?? oldViaje.cliente
             }
         })
 
