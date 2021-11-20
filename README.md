@@ -1,12 +1,3 @@
-~~Breve descripción (no más de 5 lineas) del proyecto y lo que apunta resolver.
-Listado de funcionalidades (casos de uso)
-Listado de actores/roles 
-Listado de las entidades principales
-Instrucciones técnicas:
-    - Para la instalación de un entorno de desarrollo
-    - Para la ejecución
-Listado de los endpoints de la API~~ 
-
 # Transportes Raffi
 ## Descripcion del proyecto
 ***El proyecto expone los endpoints de backend de un sistema de gestion de transporte de paqueteria. 
